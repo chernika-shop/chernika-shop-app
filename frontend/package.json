@@ -9,6 +9,8 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@apollo/client": "^4.0.10",
+    "graphql": "^16.12.0",
     "next": "16.0.10",
     "react": "19.2.1",
     "react-dom": "19.2.1"
@@ -19,6 +21,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.0.10",
+    "prettier": "^3.7.4",
     "typescript": "^5"
   }
 }
