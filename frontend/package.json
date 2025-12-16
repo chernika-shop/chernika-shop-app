@@ -2,11 +2,13 @@
   "name": "my-app",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint && stylelint '**/*.module.scss'",
+    "prepare": "cd .. && husky frontend/.husky"
   },
   "dependencies": {
     "@apollo/client": "^4.0.10",
@@ -21,7 +23,15 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.0.10",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.2.10",
     "prettier": "^3.7.4",
+    "stylelint": "^16.26.1",
+    "stylelint-config-clean-order": "^8.0.0",
+    "stylelint-config-css-modules": "^4.5.1",
+    "stylelint-config-standard": "^39.0.1",
+    "stylelint-config-standard-scss": "^16.0.0",
+    "stylelint-order": "^7.0.0",
     "typescript": "^5"
   }
 }
