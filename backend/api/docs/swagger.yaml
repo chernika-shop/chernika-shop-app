@@ -1,0 +1,26 @@
+basePath: /api
+host: localhost:8080
+info:
+  contact: {}
+  description: API для магазина женской одежды "Chernika"
+  title: Chernika Shop API
+  version: "1.0"
+paths:
+  /api/health:
+    get:
+      consumes:
+      - application/json
+      description: Проверка работоспособности API
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Health check
+      tags:
+      - system
+swagger: "2.0"
