@@ -2,25 +2,123 @@
 
 package model
 
-type Mutation struct {
+type AddToCartInput struct {
+	ProductID     string `json:"product_id"`
+	ProductSizeID string `json:"product_size_id"`
+	Quantity      int32  `json:"quantity"`
 }
 
-type NewTodo struct {
-	Text   string `json:"text"`
-	UserID string `json:"userId"`
+type ChangePasswordInput struct {
+	OldPassword string `json:"old_password"`
+	NewPassword string `json:"new_password"`
+}
+
+type CreateCategoryInput struct {
+	Name      string  `json:"name"`
+	Slug      string  `json:"slug"`
+	ParentID  *string `json:"parent_id,omitempty"`
+	SortOrder *int32  `json:"sort_order,omitempty"`
+	IsActive  *bool   `json:"is_active,omitempty"`
+}
+
+type CreateOrderInput struct {
+	CustomerName     string                  `json:"customer_name"`
+	CustomerPhone    string                  `json:"customer_phone"`
+	CustomerEmail    string                  `json:"customer_email"`
+	CustomerTelegram *string                 `json:"customer_telegram,omitempty"`
+	PickupPoint      *string                 `json:"pickup_point,omitempty"`
+	Notes            *string                 `json:"notes,omitempty"`
+	Items            []*CreateOrderItemInput `json:"items"`
+}
+
+type CreateOrderItemInput struct {
+	ProductID     string `json:"product_id"`
+	ProductSizeID string `json:"product_size_id"`
+	Quantity      int32  `json:"quantity"`
+}
+
+type CreateOrderMessageInput struct {
+	OrderID string `json:"order_id"`
+	Message string `json:"message"`
+}
+
+type CreateProductImageInput struct {
+	ProductID string `json:"product_id"`
+	ImagePath string `json:"image_path"`
+	SortOrder *int32 `json:"sort_order,omitempty"`
+	IsMain    *bool  `json:"is_main,omitempty"`
+}
+
+type CreateProductInput struct {
+	Name        string   `json:"name"`
+	Slug        string   `json:"slug"`
+	Description *string  `json:"description,omitempty"`
+	Price       float64  `json:"price"`
+	OldPrice    *float64 `json:"old_price,omitempty"`
+	Articule    string   `json:"articule"`
+	CategoryID  string   `json:"category_id"`
+	IsActive    *bool    `json:"is_active,omitempty"`
+	IsAvailable *bool    `json:"is_available,omitempty"`
+}
+
+type CreateProductSizeInput struct {
+	ProductID string `json:"product_id"`
+	SizeName  string `json:"size_name"`
+	Quantity  int32  `json:"quantity"`
+}
+
+type CreateUserInput struct {
+	Email      string  `json:"email"`
+	Phone      string  `json:"phone"`
+	Password   string  `json:"password"`
+	FullName   string  `json:"full_name"`
+	TelegramID *string `json:"telegram_id,omitempty"`
+}
+
+type Mutation struct {
 }
 
 type Query struct {
 }
 
-type Todo struct {
-	ID   string `json:"id"`
-	Text string `json:"text"`
-	Done bool   `json:"done"`
-	User *User  `json:"user"`
+type UpdateCartItemInput struct {
+	Quantity int32 `json:"quantity"`
 }
 
-type User struct {
-	ID   string `json:"id"`
-	Name string `json:"name"`
+type UpdateCategoryInput struct {
+	Name      *string `json:"name,omitempty"`
+	Slug      *string `json:"slug,omitempty"`
+	ParentID  *string `json:"parent_id,omitempty"`
+	SortOrder *int32  `json:"sort_order,omitempty"`
+	IsActive  *bool   `json:"is_active,omitempty"`
+}
+
+type UpdateOrderInput struct {
+	Status           *string `json:"status,omitempty"`
+	CustomerName     *string `json:"customer_name,omitempty"`
+	CustomerPhone    *string `json:"customer_phone,omitempty"`
+	CustomerEmail    *string `json:"customer_email,omitempty"`
+	CustomerTelegram *string `json:"customer_telegram,omitempty"`
+	PickupPoint      *string `json:"pickup_point,omitempty"`
+	Notes            *string `json:"notes,omitempty"`
+}
+
+type UpdateProductInput struct {
+	Name        *string  `json:"name,omitempty"`
+	Slug        *string  `json:"slug,omitempty"`
+	Description *string  `json:"description,omitempty"`
+	Price       *float64 `json:"price,omitempty"`
+	OldPrice    *float64 `json:"old_price,omitempty"`
+	Articule    *string  `json:"articule,omitempty"`
+	CategoryID  *string  `json:"category_id,omitempty"`
+	IsActive    *bool    `json:"is_active,omitempty"`
+	IsAvailable *bool    `json:"is_available,omitempty"`
+}
+
+type UpdateUserInput struct {
+	Email      *string `json:"email,omitempty"`
+	Phone      *string `json:"phone,omitempty"`
+	FullName   *string `json:"full_name,omitempty"`
+	TelegramID *string `json:"telegram_id,omitempty"`
+	Password   *string `json:"password,omitempty"`
 }

@@ -1,28 +1,337 @@
-# GraphQL schema example
-#
+# GraphQL schema для интернет-магазина
 # https://gqlgen.com/getting-started/
 
-type Todo {
-  id: ID!
-  text: String!
-  done: Boolean!
-  user: User!
-}
+scalar Time
+
 
 type User {
   id: ID!
-  name: String!
+  email: String!
+  phone: String!
+  full_name: String!
+  telegram_id: String
+  created_at: Time!
+  updated_at: Time!
 }
+
+type AdminUser {
+  id: ID!
+  email: String!
+  full_name: String!
+  role: String!
+  telegram_id: String!
+  is_active: Boolean!
+  created_at: Time!
+}
+
+type Category {
+  id: ID!
+  name: String!
+  slug: String!
+  parent_id: ID
+  sort_order: Int!
+  is_active: Boolean!
+  parent: Category
+  children: [Category!]!
+}
+
+type ProductImage {
+  id: ID!
+  product_id: ID!
+  image_path: String!
+  sort_order: Int!
+  is_main: Boolean!
+  product: Product
+}
+
+type ProductSize {
+  id: ID!
+  product_id: ID!
+  size_name: String!
+  quantity: Int!
+  product: Product
+}
+
+type Product {
+  id: ID!
+  name: String!
+  slug: String!
+  description: String
+  price: Float!
+  old_price: Float
+  articule: String!
+  category_id: ID!
+  is_active: Boolean!
+  is_available: Boolean!
+  created_at: Time!
+  updated_at: Time!
+  category: Category
+  images: [ProductImage!]!
+  sizes: [ProductSize!]!
+}
+
+type CartItem {
+  id: ID!
+  user_id: ID!
+  product_id: ID!
+  product_size_id: ID!
+  quantity: Int!
+  created_at: Time!
+  user: User
+  product: Product
+  product_size: ProductSize
+}
+
+type OrderItem {
+  id: ID!
+  order_id: ID!
+  product_id: ID!
+  product_size_id: ID!
+  product_name: String!
+  product_price: Float!
+  quantity: Int!
+  total_price: Float!
+  order: Order
+  product: Product
+  product_size: ProductSize
+}
+
+type OrderMessage {
+  id: ID!
+  order_id: ID!
+  sender_type: String!
+  message: String!
+  is_read: Boolean!
+  created_at: Time!
+  order: Order
+}
+
+type Order {
+  id: ID!
+  order_number: String!
+  user_id: ID!
+  status: String!
+  total_amount: Float!
+  customer_name: String!
+  customer_phone: String!
+  customer_email: String!
+  customer_telegram: String
+  pickup_point: String
+  notes: String
+  created_at: Time!
+  updated_at: Time!
+  user: User
+  items: [OrderItem!]!
+  messages: [OrderMessage!]!
+}
+
+type Wishlist {
+  id: ID!
+  user_id: ID!
+  product_id: ID!
+  created_at: Time!
+  user: User
+  product: Product
+}
+
+
+input CreateUserInput {
+  email: String!
+  phone: String!
+  password: String!
+  full_name: String!
+  telegram_id: String
+}
+
+input UpdateUserInput {
+  email: String
+  phone: String
+  full_name: String
+  telegram_id: String
+  password: String
+}
+
+input ChangePasswordInput {
+  old_password: String!
+  new_password: String!
+}
+
+input CreateCategoryInput {
+  name: String!
+  slug: String!
+  parent_id: ID
+  sort_order: Int
+  is_active: Boolean
+}
+
+input UpdateCategoryInput {
+  name: String
+  slug: String
+  parent_id: ID
+  sort_order: Int
+  is_active: Boolean
+}
+
+input CreateProductInput {
+  name: String!
+  slug: String!
+  description: String
+  price: Float!
+  old_price: Float
+  articule: String!
+  category_id: ID!
+  is_active: Boolean
+  is_available: Boolean
+}
+
+input UpdateProductInput {
+  name: String
+  slug: String
+  description: String
+  price: Float
+  old_price: Float
+  articule: String
+  category_id: ID
+  is_active: Boolean
+  is_available: Boolean
+}
+
+input CreateProductImageInput {
+  product_id: ID!
+  image_path: String!
+  sort_order: Int
+  is_main: Boolean
+}
+
+input CreateProductSizeInput {
+  product_id: ID!
+  size_name: String!
+  quantity: Int!
+}
+
+input AddToCartInput {
+  product_id: ID!
+  product_size_id: ID!
+  quantity: Int!
+}
+
+input UpdateCartItemInput {
+  quantity: Int!
+}
+
+input CreateOrderInput {
+  customer_name: String!
+  customer_phone: String!
+  customer_email: String!
+  customer_telegram: String
+  pickup_point: String
+  notes: String
+  items: [CreateOrderItemInput!]!
+}
+
+input CreateOrderItemInput {
+  product_id: ID!
+  product_size_id: ID!
+  quantity: Int!
+}
+
+input UpdateOrderInput {
+  status: String
+  customer_name: String
+  customer_phone: String
+  customer_email: String
+  customer_telegram: String
+  pickup_point: String
+  notes: String
+}
+
+input CreateOrderMessageInput {
+  order_id: ID!
+  message: String!
+}
+
 
 type Query {
-  todos: [Todo!]!
+  # Пользователи
+  user(id: ID!): User
+  me: User
+  
+  # Администраторы
+  admin_user(id: ID!): AdminUser
+  
+  # Категории
+  categories(parent_id: ID): [Category!]!
+  category(id: ID!): Category
+  category_by_slug(slug: String!): Category
+  
+  # Товары
+  products(
+    category_id: ID
+    is_active: Boolean
+    is_available: Boolean
+    limit: Int
+    offset: Int
+  ): [Product!]!
+  product(id: ID!): Product
+  product_by_slug(slug: String!): Product
+  
+  # Корзина
+  cart_items: [CartItem!]!
+  cart_item(id: ID!): CartItem
+  
+  # Заказы
+  orders(status: String, limit: Int, offset: Int): [Order!]!
+  order(id: ID!): Order
+  order_by_number(order_number: String!): Order
+  
+  # Избранное
+  wishlist: [Wishlist!]!
+  wishlist_item(id: ID!): Wishlist
 }
 
-input NewTodo {
-  text: String!
-  userId: String!
-}
 
 type Mutation {
-  createTodo(input: NewTodo!): Todo!
+  # Пользователи
+  register(input: CreateUserInput!): User!
+  login(email: String!, password: String!): String! # возвращает токен
+  update_user(input: UpdateUserInput!): User!
+  change_password(input: ChangePasswordInput!): Boolean!
+  
+  # Категории
+  create_category(input: CreateCategoryInput!): Category!
+  update_category(id: ID!, input: UpdateCategoryInput!): Category!
+  delete_category(id: ID!): Boolean!
+  
+  # Товары
+  create_product(input: CreateProductInput!): Product!
+  update_product(id: ID!, input: UpdateProductInput!): Product!
+  delete_product(id: ID!): Boolean!
+  
+  # Изображения товаров
+  create_product_image(input: CreateProductImageInput!): ProductImage!
+  delete_product_image(id: ID!): Boolean!
+  
+  # Размеры товаров
+  create_product_size(input: CreateProductSizeInput!): ProductSize!
+  update_product_size(id: ID!, quantity: Int!): ProductSize!
+  delete_product_size(id: ID!): Boolean!
+  
+  # Корзина
+  add_to_cart(input: AddToCartInput!): CartItem!
+  update_cart_item(id: ID!, input: UpdateCartItemInput!): CartItem!
+  remove_from_cart(id: ID!): Boolean!
+  clear_cart: Boolean!
+  
+  # Заказы
+  create_order(input: CreateOrderInput!): Order!
+  update_order(id: ID!, input: UpdateOrderInput!): Order!
+  cancel_order(id: ID!): Order!
+  
+  # Сообщения заказов
+  create_order_message(input: CreateOrderMessageInput!): OrderMessage!
+  mark_message_as_read(id: ID!): OrderMessage!
+  
+  # Избранное
+  add_to_wishlist(product_id: ID!): Wishlist!
+  remove_from_wishlist(id: ID!): Boolean!
 }

@@ -5,8 +5,9 @@ package graph
 // It serves as dependency injection for your app, add any dependencies you require
 // here.
 
-import "backend/graph/model"
-
 type Resolver struct{
-	todos []*model.Todo
+	// Добавьте здесь ваши зависимости (например, репозитории, сервисы)
+	// db *gorm.DB
+	// userRepo repository.UserRepository
+	// productRepo repository.ProductRepository
 }
