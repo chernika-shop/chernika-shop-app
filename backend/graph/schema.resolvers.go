@@ -7,36 +7,305 @@ package graph
 
 import (
 	"backend/graph/model"
+	"backend/internal/models"
 	"context"
 	"fmt"
 )
 
-// CreateTodo is the resolver for the createTodo field.
-func (r *mutationResolver) CreateTodo(ctx context.Context, input model.NewTodo) (*model.Todo, error) {
-	// Простая реализация для примера
-	todo := &model.Todo{
-		ID:   fmt.Sprintf("todo_%d", len(r.Resolver.todos)+1),
-		Text: input.Text,
-		Done: false,
-		User: &model.User{
-			ID:   input.UserID,
-			Name: "User " + input.UserID,
-		},
-	}
-	r.Resolver.todos = append(r.Resolver.todos, todo)
-	return todo, nil
+// Quantity is the resolver for the quantity field.
+func (r *cartItemResolver) Quantity(ctx context.Context, obj *models.CartItem) (int32, error) {
+	panic(fmt.Errorf("not implemented: Quantity - quantity"))
 }
 
-// Todos is the resolver for the todos field.
-func (r *queryResolver) Todos(ctx context.Context) ([]*model.Todo, error) {
-	return r.Resolver.todos, nil
+// SortOrder is the resolver for the sort_order field.
+func (r *categoryResolver) SortOrder(ctx context.Context, obj *models.Category) (int32, error) {
+	panic(fmt.Errorf("not implemented: SortOrder - sort_order"))
 }
+
+// Register is the resolver for the register field.
+func (r *mutationResolver) Register(ctx context.Context, input model.CreateUserInput) (*models.User, error) {
+	panic(fmt.Errorf("not implemented: Register - register"))
+}
+
+// Login is the resolver for the login field.
+func (r *mutationResolver) Login(ctx context.Context, email string, password string) (string, error) {
+	panic(fmt.Errorf("not implemented: Login - login"))
+}
+
+// UpdateUser is the resolver for the update_user field.
+func (r *mutationResolver) UpdateUser(ctx context.Context, input model.UpdateUserInput) (*models.User, error) {
+	panic(fmt.Errorf("not implemented: UpdateUser - update_user"))
+}
+
+// ChangePassword is the resolver for the change_password field.
+func (r *mutationResolver) ChangePassword(ctx context.Context, input model.ChangePasswordInput) (bool, error) {
+	panic(fmt.Errorf("not implemented: ChangePassword - change_password"))
+}
+
+// CreateCategory is the resolver for the create_category field.
+func (r *mutationResolver) CreateCategory(ctx context.Context, input model.CreateCategoryInput) (*models.Category, error) {
+	panic(fmt.Errorf("not implemented: CreateCategory - create_category"))
+}
+
+// UpdateCategory is the resolver for the update_category field.
+func (r *mutationResolver) UpdateCategory(ctx context.Context, id string, input model.UpdateCategoryInput) (*models.Category, error) {
+	panic(fmt.Errorf("not implemented: UpdateCategory - update_category"))
+}
+
+// DeleteCategory is the resolver for the delete_category field.
+func (r *mutationResolver) DeleteCategory(ctx context.Context, id string) (bool, error) {
+	panic(fmt.Errorf("not implemented: DeleteCategory - delete_category"))
+}
+
+// CreateProduct is the resolver for the create_product field.
+func (r *mutationResolver) CreateProduct(ctx context.Context, input model.CreateProductInput) (*models.Product, error) {
+	panic(fmt.Errorf("not implemented: CreateProduct - create_product"))
+}
+
+// UpdateProduct is the resolver for the update_product field.
+func (r *mutationResolver) UpdateProduct(ctx context.Context, id string, input model.UpdateProductInput) (*models.Product, error) {
+	panic(fmt.Errorf("not implemented: UpdateProduct - update_product"))
+}
+
+// DeleteProduct is the resolver for the delete_product field.
+func (r *mutationResolver) DeleteProduct(ctx context.Context, id string) (bool, error) {
+	panic(fmt.Errorf("not implemented: DeleteProduct - delete_product"))
+}
+
+// CreateProductImage is the resolver for the create_product_image field.
+func (r *mutationResolver) CreateProductImage(ctx context.Context, input model.CreateProductImageInput) (*models.ProductImage, error) {
+	panic(fmt.Errorf("not implemented: CreateProductImage - create_product_image"))
+}
+
+// DeleteProductImage is the resolver for the delete_product_image field.
+func (r *mutationResolver) DeleteProductImage(ctx context.Context, id string) (bool, error) {
+	panic(fmt.Errorf("not implemented: DeleteProductImage - delete_product_image"))
+}
+
+// CreateProductSize is the resolver for the create_product_size field.
+func (r *mutationResolver) CreateProductSize(ctx context.Context, input model.CreateProductSizeInput) (*models.ProductSize, error) {
+	panic(fmt.Errorf("not implemented: CreateProductSize - create_product_size"))
+}
+
+// UpdateProductSize is the resolver for the update_product_size field.
+func (r *mutationResolver) UpdateProductSize(ctx context.Context, id string, quantity int32) (*models.ProductSize, error) {
+	panic(fmt.Errorf("not implemented: UpdateProductSize - update_product_size"))
+}
+
+// DeleteProductSize is the resolver for the delete_product_size field.
+func (r *mutationResolver) DeleteProductSize(ctx context.Context, id string) (bool, error) {
+	panic(fmt.Errorf("not implemented: DeleteProductSize - delete_product_size"))
+}
+
+// AddToCart is the resolver for the add_to_cart field.
+func (r *mutationResolver) AddToCart(ctx context.Context, input model.AddToCartInput) (*models.CartItem, error) {
+	panic(fmt.Errorf("not implemented: AddToCart - add_to_cart"))
+}
+
+// UpdateCartItem is the resolver for the update_cart_item field.
+func (r *mutationResolver) UpdateCartItem(ctx context.Context, id string, input model.UpdateCartItemInput) (*models.CartItem, error) {
+	panic(fmt.Errorf("not implemented: UpdateCartItem - update_cart_item"))
+}
+
+// RemoveFromCart is the resolver for the remove_from_cart field.
+func (r *mutationResolver) RemoveFromCart(ctx context.Context, id string) (bool, error) {
+	panic(fmt.Errorf("not implemented: RemoveFromCart - remove_from_cart"))
+}
+
+// ClearCart is the resolver for the clear_cart field.
+func (r *mutationResolver) ClearCart(ctx context.Context) (bool, error) {
+	panic(fmt.Errorf("not implemented: ClearCart - clear_cart"))
+}
+
+// CreateOrder is the resolver for the create_order field.
+func (r *mutationResolver) CreateOrder(ctx context.Context, input model.CreateOrderInput) (*models.Order, error) {
+	panic(fmt.Errorf("not implemented: CreateOrder - create_order"))
+}
+
+// UpdateOrder is the resolver for the update_order field.
+func (r *mutationResolver) UpdateOrder(ctx context.Context, id string, input model.UpdateOrderInput) (*models.Order, error) {
+	panic(fmt.Errorf("not implemented: UpdateOrder - update_order"))
+}
+
+// CancelOrder is the resolver for the cancel_order field.
+func (r *mutationResolver) CancelOrder(ctx context.Context, id string) (*models.Order, error) {
+	panic(fmt.Errorf("not implemented: CancelOrder - cancel_order"))
+}
+
+// CreateOrderMessage is the resolver for the create_order_message field.
+func (r *mutationResolver) CreateOrderMessage(ctx context.Context, input model.CreateOrderMessageInput) (*models.OrderMessage, error) {
+	panic(fmt.Errorf("not implemented: CreateOrderMessage - create_order_message"))
+}
+
+// MarkMessageAsRead is the resolver for the mark_message_as_read field.
+func (r *mutationResolver) MarkMessageAsRead(ctx context.Context, id string) (*models.OrderMessage, error) {
+	panic(fmt.Errorf("not implemented: MarkMessageAsRead - mark_message_as_read"))
+}
+
+// AddToWishlist is the resolver for the add_to_wishlist field.
+func (r *mutationResolver) AddToWishlist(ctx context.Context, productID string) (*models.Wishlist, error) {
+	panic(fmt.Errorf("not implemented: AddToWishlist - add_to_wishlist"))
+}
+
+// RemoveFromWishlist is the resolver for the remove_from_wishlist field.
+func (r *mutationResolver) RemoveFromWishlist(ctx context.Context, id string) (bool, error) {
+	panic(fmt.Errorf("not implemented: RemoveFromWishlist - remove_from_wishlist"))
+}
+
+// CustomerTelegram is the resolver for the customer_telegram field.
+func (r *orderResolver) CustomerTelegram(ctx context.Context, obj *models.Order) (*string, error) {
+	panic(fmt.Errorf("not implemented: CustomerTelegram - customer_telegram"))
+}
+
+// PickupPoint is the resolver for the pickup_point field.
+func (r *orderResolver) PickupPoint(ctx context.Context, obj *models.Order) (*string, error) {
+	panic(fmt.Errorf("not implemented: PickupPoint - pickup_point"))
+}
+
+// Notes is the resolver for the notes field.
+func (r *orderResolver) Notes(ctx context.Context, obj *models.Order) (*string, error) {
+	panic(fmt.Errorf("not implemented: Notes - notes"))
+}
+
+// Quantity is the resolver for the quantity field.
+func (r *orderItemResolver) Quantity(ctx context.Context, obj *models.OrderItem) (int32, error) {
+	panic(fmt.Errorf("not implemented: Quantity - quantity"))
+}
+
+// Description is the resolver for the description field.
+func (r *productResolver) Description(ctx context.Context, obj *models.Product) (*string, error) {
+	panic(fmt.Errorf("not implemented: Description - description"))
+}
+
+// OldPrice is the resolver for the old_price field.
+func (r *productResolver) OldPrice(ctx context.Context, obj *models.Product) (*float64, error) {
+	panic(fmt.Errorf("not implemented: OldPrice - old_price"))
+}
+
+// SortOrder is the resolver for the sort_order field.
+func (r *productImageResolver) SortOrder(ctx context.Context, obj *models.ProductImage) (int32, error) {
+	panic(fmt.Errorf("not implemented: SortOrder - sort_order"))
+}
+
+// Quantity is the resolver for the quantity field.
+func (r *productSizeResolver) Quantity(ctx context.Context, obj *models.ProductSize) (int32, error) {
+	panic(fmt.Errorf("not implemented: Quantity - quantity"))
+}
+
+// User is the resolver for the user field.
+func (r *queryResolver) User(ctx context.Context, id string) (*models.User, error) {
+	panic(fmt.Errorf("not implemented: User - user"))
+}
+
+// Me is the resolver for the me field.
+func (r *queryResolver) Me(ctx context.Context) (*models.User, error) {
+	panic(fmt.Errorf("not implemented: Me - me"))
+}
+
+// AdminUser is the resolver for the admin_user field.
+func (r *queryResolver) AdminUser(ctx context.Context, id string) (*models.AdminUser, error) {
+	panic(fmt.Errorf("not implemented: AdminUser - admin_user"))
+}
+
+// Categories is the resolver for the categories field.
+func (r *queryResolver) Categories(ctx context.Context, parentID *string) ([]*models.Category, error) {
+	panic(fmt.Errorf("not implemented: Categories - categories"))
+}
+
+// Category is the resolver for the category field.
+func (r *queryResolver) Category(ctx context.Context, id string) (*models.Category, error) {
+	panic(fmt.Errorf("not implemented: Category - category"))
+}
+
+// CategoryBySlug is the resolver for the category_by_slug field.
+func (r *queryResolver) CategoryBySlug(ctx context.Context, slug string) (*models.Category, error) {
+	panic(fmt.Errorf("not implemented: CategoryBySlug - category_by_slug"))
+}
+
+// Products is the resolver for the products field.
+func (r *queryResolver) Products(ctx context.Context, categoryID *string, isActive *bool, isAvailable *bool, limit *int32, offset *int32) ([]*models.Product, error) {
+	panic(fmt.Errorf("not implemented: Products - products"))
+}
+
+// Product is the resolver for the product field.
+func (r *queryResolver) Product(ctx context.Context, id string) (*models.Product, error) {
+	panic(fmt.Errorf("not implemented: Product - product"))
+}
+
+// ProductBySlug is the resolver for the product_by_slug field.
+func (r *queryResolver) ProductBySlug(ctx context.Context, slug string) (*models.Product, error) {
+	panic(fmt.Errorf("not implemented: ProductBySlug - product_by_slug"))
+}
+
+// CartItems is the resolver for the cart_items field.
+func (r *queryResolver) CartItems(ctx context.Context) ([]*models.CartItem, error) {
+	panic(fmt.Errorf("not implemented: CartItems - cart_items"))
+}
+
+// CartItem is the resolver for the cart_item field.
+func (r *queryResolver) CartItem(ctx context.Context, id string) (*models.CartItem, error) {
+	panic(fmt.Errorf("not implemented: CartItem - cart_item"))
+}
+
+// Orders is the resolver for the orders field.
+func (r *queryResolver) Orders(ctx context.Context, status *string, limit *int32, offset *int32) ([]*models.Order, error) {
+	panic(fmt.Errorf("not implemented: Orders - orders"))
+}
+
+// Order is the resolver for the order field.
+func (r *queryResolver) Order(ctx context.Context, id string) (*models.Order, error) {
+	panic(fmt.Errorf("not implemented: Order - order"))
+}
+
+// OrderByNumber is the resolver for the order_by_number field.
+func (r *queryResolver) OrderByNumber(ctx context.Context, orderNumber string) (*models.Order, error) {
+	panic(fmt.Errorf("not implemented: OrderByNumber - order_by_number"))
+}
+
+// Wishlist is the resolver for the wishlist field.
+func (r *queryResolver) Wishlist(ctx context.Context) ([]*models.Wishlist, error) {
+	panic(fmt.Errorf("not implemented: Wishlist - wishlist"))
+}
+
+// WishlistItem is the resolver for the wishlist_item field.
+func (r *queryResolver) WishlistItem(ctx context.Context, id string) (*models.Wishlist, error) {
+	panic(fmt.Errorf("not implemented: WishlistItem - wishlist_item"))
+}
+
+// CartItem returns CartItemResolver implementation.
+func (r *Resolver) CartItem() CartItemResolver { return &cartItemResolver{r} }
+
+// Category returns CategoryResolver implementation.
+func (r *Resolver) Category() CategoryResolver { return &categoryResolver{r} }
 
 // Mutation returns MutationResolver implementation.
 func (r *Resolver) Mutation() MutationResolver { return &mutationResolver{r} }
 
+// Order returns OrderResolver implementation.
+func (r *Resolver) Order() OrderResolver { return &orderResolver{r} }
+
+// OrderItem returns OrderItemResolver implementation.
+func (r *Resolver) OrderItem() OrderItemResolver { return &orderItemResolver{r} }
+
+// Product returns ProductResolver implementation.
+func (r *Resolver) Product() ProductResolver { return &productResolver{r} }
+
+// ProductImage returns ProductImageResolver implementation.
+func (r *Resolver) ProductImage() ProductImageResolver { return &productImageResolver{r} }
+
+// ProductSize returns ProductSizeResolver implementation.
+func (r *Resolver) ProductSize() ProductSizeResolver { return &productSizeResolver{r} }
+
 // Query returns QueryResolver implementation.
 func (r *Resolver) Query() QueryResolver { return &queryResolver{r} }
 
+type cartItemResolver struct{ *Resolver }
+type categoryResolver struct{ *Resolver }
 type mutationResolver struct{ *Resolver }
+type orderResolver struct{ *Resolver }
+type orderItemResolver struct{ *Resolver }
+type productResolver struct{ *Resolver }
+type productImageResolver struct{ *Resolver }
+type productSizeResolver struct{ *Resolver }
 type queryResolver struct{ *Resolver }
+

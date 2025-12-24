@@ -12,8 +12,18 @@ func SetupRouter(graphQLHandler *handler.Server) *gin.Engine {
 	r := gin.Default()
 	
 	// Swagger
-	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
-	
+	r.GET("/docs",func(c *gin.Context)  {
+		c.Redirect(302,"/swagger/index.html")
+	})
+	swaggerHandler := ginSwagger.WrapHandler(
+		swaggerFiles.Handler,
+		ginSwagger.URL("/swagger/doc.json"), 
+		ginSwagger.DefaultModelsExpandDepth(-1), 
+		ginSwagger.DocExpansion("list"),
+		ginSwagger.DeepLinking(true), 
+	)
+	r.GET("/swagger/*any", swaggerHandler)
+
 	// REST API
 	api := r.Group("/api")
 	{

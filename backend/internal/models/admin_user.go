@@ -10,8 +10,7 @@ type AdminUser struct{
 	Password string `json:"-" gorm:"column:password_hash;size:255"`
 	FullName string  `json:"full_name" gorm:"column:full_name;size:255"`
 	Role string  `json:"role" gorm:"size:50"`
-	// тоже понять что тут за Tg, id или username
-	TelegramID string  `json:"telegram_id" gorm:"column:telegram_id;size:100"`
+	TelegramID string  `json:"telegram_id" gorm:"column:telegram_id;size:100;not null"`
 	IsActive bool `json:"is_active" gorm:"column:is_active;default:true"`
 	CreatedAt time.Time `json:"created_at" gorm:"column:created_at"`
 }

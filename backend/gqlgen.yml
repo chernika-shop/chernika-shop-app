@@ -53,7 +53,7 @@ resolver:
   # preserve_resolver: false
 
 # Optional: turn on use ` + "`" + `gqlgen:"fieldName"` + "`" + ` tags in your models
-# struct_tag: json
+struct_tag: json
 
 # Optional: turn on to use []Thing instead of []*Thing
 # omit_slice_element_pointers: false
@@ -121,7 +121,8 @@ call_argument_directives_with_null: true
 # gqlgen will search for any type names in the schema in these go packages
 # if they match it will use them, otherwise it will generate them.
 autobind:
-#  - "backend/graph/model"
+  - "backend/graph/model"
+  - "backend/internal/models"
 
 # This section declares type mapping between the GraphQL and go type systems
 #
@@ -157,3 +158,6 @@ models:
     model:
       - github.com/99designs/gqlgen/graphql.Int
       - github.com/99designs/gqlgen/graphql.Int64
+  Time:
+    model:
+      - time.Time
