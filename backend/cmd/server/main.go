@@ -1,11 +1,14 @@
 package main
 
 import (
-    "os"
-    "github.com/99designs/gqlgen/graphql/handler"
-    "backend/graph"
-    "backend/internal/router"
-    _ "backend/api/docs"
+	"log"
+	"os"
+	
+	"github.com/99designs/gqlgen/graphql/handler"
+	"backend/graph"
+	"backend/internal/router"
+	"backend/pkg/database"
+	_ "backend/api/docs"
 )
 
 // @title           Chernika Shop API
@@ -13,6 +16,11 @@ import (
 // @description     API для магазина женской одежды "Chernika"
 // @host            localhost:8000
 func main() {
+	log.Println("The backend is launched")
+	if err := database.RunMigrations(); err != nil{
+		log.Fatalf("Failed to run migrations:%v",err)
+	}
+
 	// GraphQL handler
 	srv := handler.NewDefaultServer(
 		graph.NewExecutableSchema(
@@ -21,10 +29,6 @@ func main() {
 	)
 	r := router.SetupRouter(srv)
 	port := os.Getenv("SERVER_PORT")
-	if port == "" {
-		port = "8000"
-	}
-
 	r.Run(":" + port)
 }
 
