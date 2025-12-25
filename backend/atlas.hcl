@@ -9,17 +9,23 @@ data "external_schema" "gorm" {
     "--dialect", "postgres"
   ]
 }
-env "gorm" {
+
+env "local" {
   src = data.external_schema.gorm.url
-  url = "postgres://test_user:test_pass@localhost:5432/test_db?sslmode=disable"
+  url = "postgres://postgres:postgres@localhost:5432/postgres?sslmode=disable"
   dev = "docker://postgres/15/dev?search_path=public"
   migration {
     dir = "file://migrations"
-    format = golang-migrate
+    format = atlas
   }
-  format {
-    migrate {
-      diff = "{{ sql . \"  \" }}"
-    }
+}
+
+env "dev" {
+  src = data.external_schema.gorm.url
+  url = getenv("DB_BASE_URL")
+  dev = getenv("DB_BASE_URL")
+  migration {
+    dir = "file://migrations"
+    format = atlas
   }
 }

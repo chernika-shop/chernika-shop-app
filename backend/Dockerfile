@@ -9,7 +9,12 @@ RUN go mod download
 
 RUN go install github.com/swaggo/swag/cmd/swag@latest
 RUN go install github.com/air-verse/air@latest
-RUN go install -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@latest
+
+# Устанавливаем Atlas через бинарник (из-за проблем с компиляцией в Go 1.25)
+RUN apk add --no-cache curl bash && \
+    curl -sSf https://atlasgo.sh | bash -s -- --dir /usr/local/bin && \
+    chmod +x /usr/local/bin/atlas && \
+    apk del curl bash
 
 ENV PATH=$PATH:/go/bin
 
