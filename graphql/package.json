@@ -1,0 +1,10 @@
+{
+  "type": "module",
+  "scripts": {
+    "validate": "node ./src/validation.js"
+  },
+  "devDependencies": {
+    "@types/node": "^25.0.3",
+    "graphql": "^16.12.0"
+  }
+}
