@@ -1,20 +1,35 @@
 package router
 
 import (
+	"os"
+
 	"github.com/99designs/gqlgen/graphql/handler"
 	"github.com/gin-gonic/gin"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
-func SetupRouter(graphQLHandler	*handler.Server) *gin.Engine{
+func SetupRouter(graphQLHandler *handler.Server) *gin.Engine {
+
+	if os.Getenv("GIN_MODE") == "" {
+		gin.SetMode(gin.DebugMode)
+	}
+
 	r := gin.Default()
 
+	// Настраиваем доверенные прокси для безопасности
+	// В dev можно оставить nil, в продакшене указать конкретные IP
+	trustedProxies := os.Getenv("GIN_TRUSTED_PROXIES")
+	if trustedProxies != "" {
+		r.SetTrustedProxies([]string{trustedProxies})
+	} else {
+		// В dev окружении не доверяем прокси (безопаснее)
+		r.SetTrustedProxies(nil)
+	}
+
 	setupSwagger(r)
-
 	SetupRestRouter(r)
-
-	SetupGraphQLRouter(r,graphQLHandler)
+	SetupGraphQLRouter(r, graphQLHandler)
 
 	return r
 }
